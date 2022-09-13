@@ -110,11 +110,10 @@
 
         const s0505_combo_popup_all_product_wrapper = elementMaker("div", ["s0505_combo_popup_all_product_wrapper"]);
         s0505_combo_popup.appendChild(s0505_combo_popup_all_product_wrapper);
-
+        let totalPreviousAmount = 0;
         for (let i = 0; i < comboItem.length; i++) {
             const singleProduct = comboItem[i];
             console.log("combo item", singleProduct);
-            showTotalOldPrice(singleProduct.price);
             let comboDisplayImg = `https://www.soppiya.com/media/images/${BUSINESS_ID}/item/${singleProduct.itemId}/${singleProduct.image}`;
             const s0505_combo_single_product = elementMaker("div", ["s0505_combo_single_product"]);
             const s0505_product_top_area = elementMaker("div", ["s0505_product_top_area"]);
@@ -162,6 +161,8 @@
             s0505_new_price_text.textContent = `${singleProduct.price}`;
             s0505_product_new_price_wrapper.appendChild(s0505_new_price_text);
             s0505_combo_popup_all_product_wrapper.appendChild(s0505_combo_single_product);
+            totalPreviousAmount += singleProduct.price;
+
         }
 
         const s0505_product_price_wrapper = elementMaker("div", ["s0505_product_price_wrapper"]);
@@ -171,16 +172,7 @@
         const s0501_old_price_text = elementMaker("span", ["s0501_old_price_text", "s0505_delete_product"]);
 
 
-        function showTotalOldPrice(productPrice) {
-            console.log("productPrice", productPrice);
-            let sum = 0;
-            let totalProductPrice = [];
-            totalProductPrice.push(productPrice);
-            console.log("totalProductPrice", totalProductPrice);
-        }
-
-
-        s0501_old_price_text.innerText = `BDT 6500`;
+        s0501_old_price_text.innerText = `${totalPreviousAmount}`;
         s0505_product_old_price_wrapper.appendChild(s0501_old_price_text);
         const s0505_product_new_price_wrapper = elementMaker("div", ["s0505_product_new_price_wrapper"]);
         s0505_product_price_wrapper.appendChild(s0505_product_new_price_wrapper);
@@ -194,9 +186,6 @@
         s0505_add_to_cart_btn.innerText = `Add to cart`;
         s0505_btn_wrapper.appendChild(s0505_add_to_cart_btn);
 
-
-
-
         const parentDiv = document.getElementById("s0505_combo_offer_main_popup_section_id");
         if (parentDiv.hasChildNodes()) {
             parentDiv.textContent = '';
@@ -209,6 +198,15 @@
             document.querySelector(".s0505_combo_offer_main_popup_section").classList.remove("s0505_active_combo_popup");
         });
     };
+
+    function viewMorePages() {
+        document.getElementById("s0505_combo_content_button_id").addEventListener("click", function () {
+            typeof handleNavigate == "function" && handleNavigate(`/combos`);
+        })
+    };
+    viewMorePages();
+
+
 
     function elementMaker(name, className, id) {
         try {

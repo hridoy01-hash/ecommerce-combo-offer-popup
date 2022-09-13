@@ -219,6 +219,7 @@ span.s0505_product_type {
     background-color: white;
     color: rgba(30, 39, 46, 80%);
     transition: all 0.4s ease-in-out;
+    cursor: pointer;
 }
 
 .s0505_combo_content_button:hover {
@@ -350,6 +351,7 @@ span.s0505_product_type {
     background-color: var(--primaryColor);
     color: white;
     transition: all 0.4s ease-in-out;
+    cursor: pointer;
 }
 
 .s0505_add_to_cart_btn:hover {
