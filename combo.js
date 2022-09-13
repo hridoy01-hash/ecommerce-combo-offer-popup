@@ -70,7 +70,9 @@
             s0505_combo_single_product.addEventListener("click", async function (e) {
                 e.stopPropagation();
                 const comboItem = singleProduct.items;
-                await displayComboPopup(comboItem, comboOffername);
+                console.log("single item price", singleProduct.price);
+                const comboDiscuntPrice = singleProduct.price;
+                await displayComboPopup(comboItem, comboOffername, comboDiscuntPrice);
                 document.querySelector(".s0505_combo_offer_main_popup_section").classList.add("s0505_active_combo_popup");
             });
         }
@@ -78,11 +80,7 @@
     };
     await showComboOfferItem(comboPackage);
 
-    async function displayComboPopup(comboItem, comboOffername) {
-        function comboOfferNamePopup() {
-            document.querySelector(".s0505_combo_offer_name").innerText = `${comboOffername}`;
-        };
-        comboOfferNamePopup();
+    async function displayComboPopup(comboItem, comboOffername, comboDiscuntPrice) {
         const s0505_popup_main_wrapper = elementMaker("div", ["s0505_popup_main_wrapper"]);
         const s0505_popup_top_area = elementMaker("div", ["s0505_popup_top_area"]);
         s0505_popup_main_wrapper.appendChild(s0505_popup_top_area);
@@ -116,6 +114,7 @@
         for (let i = 0; i < comboItem.length; i++) {
             const singleProduct = comboItem[i];
             console.log("combo item", singleProduct);
+            showTotalOldPrice(singleProduct.price);
             let comboDisplayImg = `https://www.soppiya.com/media/images/${BUSINESS_ID}/item/${singleProduct.itemId}/${singleProduct.image}`;
             const s0505_combo_single_product = elementMaker("div", ["s0505_combo_single_product"]);
             const s0505_product_top_area = elementMaker("div", ["s0505_product_top_area"]);
@@ -170,12 +169,23 @@
         const s0505_product_old_price_wrapper = elementMaker("div", ["s0505_product_old_price_wrapper"]);
         s0505_product_price_wrapper.appendChild(s0505_product_old_price_wrapper);
         const s0501_old_price_text = elementMaker("span", ["s0501_old_price_text", "s0505_delete_product"]);
+
+
+        function showTotalOldPrice(productPrice) {
+            console.log("productPrice", productPrice);
+            let sum = 0;
+            let totalProductPrice = [];
+            totalProductPrice.push(productPrice);
+            console.log("totalProductPrice", totalProductPrice);
+        }
+
+
         s0501_old_price_text.innerText = `BDT 6500`;
         s0505_product_old_price_wrapper.appendChild(s0501_old_price_text);
         const s0505_product_new_price_wrapper = elementMaker("div", ["s0505_product_new_price_wrapper"]);
         s0505_product_price_wrapper.appendChild(s0505_product_new_price_wrapper);
         const s0505_new_price_text = elementMaker("span", ["s0505_new_price_text"]);
-        s0505_new_price_text.innerText = `BDT 1050`;
+        s0505_new_price_text.innerText = `${CURRENCY} ${comboDiscuntPrice}`;
         s0505_product_new_price_wrapper.appendChild(s0505_new_price_text);
 
         const s0505_btn_wrapper = elementMaker("div", ["s0505_btn_wrapper"]);
@@ -187,10 +197,11 @@
 
 
 
-
-
-
-        document.getElementById("s0505_combo_offer_main_popup_section_id").appendChild(s0505_popup_main_wrapper);
+        const parentDiv = document.getElementById("s0505_combo_offer_main_popup_section_id");
+        if (parentDiv.hasChildNodes()) {
+            parentDiv.textContent = '';
+            document.getElementById("s0505_combo_offer_main_popup_section_id").appendChild(s0505_popup_main_wrapper);
+        }
         popupClose(s0505_popup_close_btn_wrapper);
     };
     function popupClose(s0505_popup_close_btn_wrapper) {
