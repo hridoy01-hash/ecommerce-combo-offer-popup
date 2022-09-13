@@ -415,6 +415,27 @@ span.s0505_close_popup_btn {
     display: block;
 }
 
+.skeleton {
+    min-height: 200px;
+    border-radius: 3px;
+    opacity: .7;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+
+        background-color: #c1c1c1;
+        opacity: 0.5;
+    }
+
+    100% {
+
+        background-color: #c1c1c8;
+        opacity: 0.8;
+    }
+}
+
 
 
 

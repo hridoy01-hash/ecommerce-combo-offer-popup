@@ -1,10 +1,19 @@
 (async function () {
     let BUSINESS_ID = "6304aa113cb8eba9248eac8d";
     let CURRENCY = "BDT";
+    const skeleton_wrapper = document.getElementById("s0505_combo_home_all_product_wrapper_id");
+    const skeleton_div = document.getElementById("fc001_feature_catagories_skeleton_template_id");
+
+
     const apiCall = async (url) => { try { let response = await fetch(url, { method: "get", headers: { "businessid": `${BUSINESS_ID}` } }); response = await response.json(); if (response.Error) { return console.log(response.Error) }; return response; } catch (e) { return }; };
 
     let loadComboProductsData = await apiCall(`https://api.soppiya.com/v2.1/widget/home/combo?limit=5`);
     // console.log("loadComboProductsData", loadComboProductsData);
+
+    for (let i = 0; i < 5; i++) {
+        skeleton_wrapper.append(skeleton_div.content.cloneNode(true));
+
+    };
 
     const comboOfferTitle = () => {
         document.querySelector(".s0505_combo_sell_title_text").innerHTML = `${loadComboProductsData.name}`;
@@ -12,7 +21,12 @@
     comboOfferTitle();
 
     // display combo offer item
-    const comboPackage = loadComboProductsData.comboPackages
+    const comboPackage = loadComboProductsData.comboPackages;
+    if (comboPackage.length) {
+        for (let i = 0; i < 5; i++) {
+            skeleton_wrapper.children[0]?.remove();
+        }
+    }
     const showComboOfferItem = async (comboPackage) => {
         for (let i = 0; i < comboPackage.length; i++) {
             const singleProduct = comboPackage[i];
