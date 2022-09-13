@@ -78,24 +78,45 @@
     };
     await showComboOfferItem(comboPackage);
 
-    function popupClose() {
-        const closeBtn = document.getElementById("s0505_popup_close_btn_wrapper_id");
-        closeBtn.addEventListener("click", function () {
-            document.querySelector(".s0505_combo_offer_main_popup_section").classList.remove("s0505_active_combo_popup");
-        });
-    };
-    popupClose();
-
     async function displayComboPopup(comboItem, comboOffername) {
         function comboOfferNamePopup() {
             document.querySelector(".s0505_combo_offer_name").innerText = `${comboOffername}`;
         };
         comboOfferNamePopup();
+        const s0505_popup_main_wrapper = elementMaker("div", ["s0505_popup_main_wrapper"]);
+        const s0505_popup_top_area = elementMaker("div", ["s0505_popup_top_area"]);
+        s0505_popup_main_wrapper.appendChild(s0505_popup_top_area);
+
+        const s0505_combo_popup = elementMaker("div", ["s0505_combo_popup"]);
+        s0505_popup_main_wrapper.appendChild(s0505_combo_popup);
+
+        const s0505_popup_bottom_area_wrapper = elementMaker("div", ["s0505_popup_bottom_area_wrapper"]);
+        s0505_popup_main_wrapper.appendChild(s0505_popup_bottom_area_wrapper);
+
+        const s0505_combo_offer_name_wrapper = elementMaker("div", ["s0505_combo_offer_name_wrapper"]);
+        s0505_popup_top_area.appendChild(s0505_combo_offer_name_wrapper);
+        const s0505_combo_offer_name = elementMaker("span", ["s0505_combo_offer_name"]);
+        s0505_combo_offer_name.innerText = `${comboOffername}`;
+        s0505_combo_offer_name_wrapper.appendChild(s0505_combo_offer_name);
+
+        const s0505_popup_close_btn_wrapper = elementMaker("div", ["s0505_popup_close_btn_wrapper"], "s0505_popup_close_btn_wrapper_id");
+        s0505_popup_close_btn_wrapper.innerHTML = `
+        <svg id="cross_2_" data-name="cross (2)" xmlns="http://www.w3.org/2000/svg" width="9" height="9"
+                            viewBox="0 0 9 9">
+                            <path id="cross_2_2" data-name="cross (2)"
+                                d="M8.939.731,8.147-.061,4.439,3.648.731-.061-.061.731,3.648,4.439-.061,8.147l.792.792L4.439,5.23,8.147,8.939l.792-.792L5.23,4.439Z"
+                                transform="translate(0.061 0.061)" fill="#1e272e" />
+                        </svg>
+        `;
+        s0505_popup_top_area.appendChild(s0505_popup_close_btn_wrapper);
+
+        const s0505_combo_popup_all_product_wrapper = elementMaker("div", ["s0505_combo_popup_all_product_wrapper"]);
+        s0505_combo_popup.appendChild(s0505_combo_popup_all_product_wrapper);
 
         for (let i = 0; i < comboItem.length; i++) {
-            const comboSingleItem = comboItem[i];
-            console.log("comboSingleItem", comboSingleItem);
-            let comboDisplayImg = `https://www.soppiya.com/media/images/${BUSINESS_ID}/item/${comboSingleItem.itemId}/${comboSingleItem.image}`;
+            const singleProduct = comboItem[i];
+            console.log("combo item", singleProduct);
+            let comboDisplayImg = `https://www.soppiya.com/media/images/${BUSINESS_ID}/item/${singleProduct.itemId}/${singleProduct.image}`;
             const s0505_combo_single_product = elementMaker("div", ["s0505_combo_single_product"]);
             const s0505_product_top_area = elementMaker("div", ["s0505_product_top_area"]);
             s0505_combo_single_product.appendChild(s0505_product_top_area);
@@ -132,22 +153,50 @@
             const s0505_product_name_wrapper = elementMaker("div", ["s0505_product_name_wrapper"]);
             s0505_product_bottom_area.appendChild(s0505_product_name_wrapper);
             const s0505_product_name = elementMaker("span", ["s0505_product_name"]);
-            s0505_product_name.textContent = `${comboSingleItem.name}`;
+            s0505_product_name.textContent = `${singleProduct.name}`;
             s0505_product_name_wrapper.appendChild(s0505_product_name);
             const s0505_product_price_wrapper = elementMaker("div", ["s0505_product_price_wrapper"]);
             s0505_product_bottom_area.appendChild(s0505_product_price_wrapper);
             const s0505_product_new_price_wrapper = elementMaker("div", ["s0505_product_new_price_wrapper"]);
             s0505_product_price_wrapper.appendChild(s0505_product_new_price_wrapper);
             const s0505_new_price_text = elementMaker("span", ["s0505_new_price_text"]);
-            s0505_new_price_text.textContent = `${comboSingleItem.price}`;
+            s0505_new_price_text.textContent = `${singleProduct.price}`;
             s0505_product_new_price_wrapper.appendChild(s0505_new_price_text);
-            
-            document.querySelector(".s0505_combo_popup_all_product_wrapper").appendChild(s0505_combo_single_product);
-
+            s0505_combo_popup_all_product_wrapper.appendChild(s0505_combo_single_product);
         }
 
+        const s0505_product_price_wrapper = elementMaker("div", ["s0505_product_price_wrapper"]);
+        s0505_popup_bottom_area_wrapper.appendChild(s0505_product_price_wrapper);
+        const s0505_product_old_price_wrapper = elementMaker("div", ["s0505_product_old_price_wrapper"]);
+        s0505_product_price_wrapper.appendChild(s0505_product_old_price_wrapper);
+        const s0501_old_price_text = elementMaker("span", ["s0501_old_price_text", "s0505_delete_product"]);
+        s0501_old_price_text.innerText = `BDT 6500`;
+        s0505_product_old_price_wrapper.appendChild(s0501_old_price_text);
+        const s0505_product_new_price_wrapper = elementMaker("div", ["s0505_product_new_price_wrapper"]);
+        s0505_product_price_wrapper.appendChild(s0505_product_new_price_wrapper);
+        const s0505_new_price_text = elementMaker("span", ["s0505_new_price_text"]);
+        s0505_new_price_text.innerText = `BDT 1050`;
+        s0505_product_new_price_wrapper.appendChild(s0505_new_price_text);
+
+        const s0505_btn_wrapper = elementMaker("div", ["s0505_btn_wrapper"]);
+        s0505_popup_bottom_area_wrapper.appendChild(s0505_btn_wrapper);
+        const s0505_add_to_cart_btn = elementMaker("button", ["s0505_add_to_cart_btn"]);
+        s0505_add_to_cart_btn.innerText = `Add to cart`;
+        s0505_btn_wrapper.appendChild(s0505_add_to_cart_btn);
 
 
+
+
+
+
+
+        document.getElementById("s0505_combo_offer_main_popup_section_id").appendChild(s0505_popup_main_wrapper);
+        popupClose(s0505_popup_close_btn_wrapper);
+    };
+    function popupClose(s0505_popup_close_btn_wrapper) {
+        s0505_popup_close_btn_wrapper.addEventListener("click", function () {
+            document.querySelector(".s0505_combo_offer_main_popup_section").classList.remove("s0505_active_combo_popup");
+        });
     };
 
     function elementMaker(name, className, id) {
