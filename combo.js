@@ -84,7 +84,7 @@
             s0505_combo_single_product.addEventListener("click", async function (e) {
                 e.stopPropagation();
                 const comboItem = singleProduct.items;
-                console.log("single item price", singleProduct.price);
+                // console.log("single item price", singleProduct.price);
                 const comboDiscuntPrice = singleProduct.price;
                 await displayComboPopup(comboItem, comboOffername, comboDiscuntPrice);
                 document.querySelector(".s0505_combo_offer_main_popup_section").classList.add("s0505_active_combo_popup");
@@ -127,7 +127,7 @@
         let totalPreviousAmount = 0;
         for (let i = 0; i < comboItem.length; i++) {
             const singleProduct = comboItem[i];
-            console.log("combo item", singleProduct);
+            // console.log("combo item", singleProduct);
             let comboDisplayImg = `https://www.soppiya.com/media/images/${BUSINESS_ID}/item/${singleProduct.itemId}/${singleProduct.image}`;
             const s0505_combo_single_product = elementMaker("div", ["s0505_combo_single_product"]);
             const s0505_product_top_area = elementMaker("div", ["s0505_product_top_area"]);
