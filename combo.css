@@ -390,7 +390,7 @@ span.s0505_product_type {
 
 }
 
-span.s0505_close_popup_btn {
+.s0505_close_popup_btn {
     display: flex;
     align-items: center;
     justify-content: end;
